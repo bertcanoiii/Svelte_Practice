@@ -3,13 +3,18 @@
 
     const dispatch = createEventDispatcher();
     let visible = false;
+    let usernameEntered = '';
+    let passwordEntered = '';
 
     function showPassword(){
-        // dispatch('message', {
-        //     text: 'Clicked Show Password Button!'
-        //     });
         visible = !visible;
         document.querySelector('#passwordInput').type = visible ? 'text' : 'password';
+    }
+
+    function logInClicked(){
+        dispatch('message', {
+            text: `You clicked the Log In Button \n Username: ${usernameEntered} \n Password: ${passwordEntered}`
+        });
     }
 </script>
 
@@ -19,9 +24,16 @@
     </figure>
     <div class="card-body space-y-2 ">
         <h2 class="card-title">Login d00d!</h2>
-        <input type="text" placeholder="Username" class="input input-bordered border-slate-200 w-full max-w-xs" />
+        <input type="text"
+               placeholder="Username"
+               bind:value={usernameEntered}
+               class="input input-bordered border-slate-200 w-full max-w-xs" />
         <div class="flex border border-slate-200 focus:outline-none rounded-lg w-full px-2 max-w-xs items-center">
-            <input id="passwordInput" type="password" placeholder="Password" class="input border-none w-full max-w-xs"/>
+            <input id="passwordInput"
+                   type="password"
+                   placeholder="Password"
+                   bind:value={passwordEntered}
+                   class="input border-none w-full max-w-xs"/>
             <button class="bg-transparent p-0" on:click={showPassword}>
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
@@ -30,7 +42,7 @@
             </button>
         </div>
         <div class="card-actions justify-end">
-            <button class="btn btn-primary">Buy Now</button>
+            <button on:click={logInClicked} class="btn btn-primary">Log In</button>
         </div>
     </div>
 </div>
